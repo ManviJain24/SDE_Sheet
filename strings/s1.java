@@ -1,99 +1,54 @@
 import java.util.*;
 class s1
 {
-    //brute force
-    public static void main(String[] args)
-    {
-        String s = "TUF is great for interview preparation";
-        System.out.println("After reversing words: ");
-        System.out.println(s);
-        s += " ";
-        Stack<String> st = new Stack<String>();
-        int i;
-        String str = "";
-        for (i = 0;i < s.length();i++)
-        {
-            if (s.charAt(i) == ' ')
-            {
-                st.push(str);
-                str = "";
-            }
-            else
-            {
-                str += s.charAt(i);
-            }
+    //approach 1
+     public String reverseWords1(String s) {
+        // Trim the input string to remove leading and trailing spaces
+        String[] str = s.trim().split("\\s+");
+
+        // Initialize the output string
+        String out = "";
+
+        // Iterate through the words in reverse order
+        for (int i = str.length - 1; i > 0; i--) {
+            // Append the current word and a space to the output
+            out += str[i] + " ";
         }
-        String ans = "";
-        while (st.size() != 1)
-        {
-            ans += st.peek() + " ";
-            st.pop();
-        }
-        ans += st.peek(); // The last word should'nt have a space after it
-        System.out.println("After reversing words: ");
-        System.out.print(ans);
+
+        // Append the first word to the output (without trailing space)
+        return out + str[0];
     }
-}
 
-
-
-
-class s1
-{
-    //optimised approach
-    static private String result(String s)
-    {
-        int left = 0;
-        int right = s.length() - 1;
-
-        String temp = "";
-        String ans = "";
-
-        //Iterate the string and keep on adding to form a word
-        //If empty space is encountered then add the current word to the result
-        while (left <= right)
-        {
-            char ch = s.charAt(left);
-            if (ch != ' ')
-            {
-                temp += ch;
-            }
-            else if (ch == ' ')
-            {
-                if (!ans.equals(""))
-                {
-                    ans = temp + " " + ans;
-                }
-                else
-                {
-                    ans = temp;
-                }
-                temp = "";
-            }
-            left++;
-        }
-
-        //If not empty string then add to the result(Last word is added)
-        if (!temp.equals(""))
-        {
-            if (!ans.equals(""))
-            {
-                ans = temp + " " + ans;
-            }
-            else
-            {
-                ans = temp;
-            }
-        }
-
-        return ans;
+    
+    //approach 2
+    public String reverseWords2(String s) {
+        String[] words = s.trim().split("\\s+");
+        Collections.reverse(Arrays.asList(words));
+        return String.join(" ", words);
     }
-    public static void main(String[] args)
-    {
-        String st = "TUF is great for interview preparation";
-        System.out.println("Before reversing words: ");
-        System.out.println(st);
-        System.out.println("After reversing words: ");
-        System.out.print(result(st));
+    
+    
+    //aproach 3(best)
+    public String reverseWords3(String s) {
+        // Trim the input string to remove leading and trailing spaces
+        int i = 0, j = s.length() - 1;
+        while (i <= j && s.charAt(i) == ' ') i++;   // Find the first non-space character
+        while (j >= i && s.charAt(j) == ' ') j--;   // Find the last non-space character
+        s = s.substring(i, j + 1);                  // Extract the trimmed substring
+
+        // Split the trimmed string into words based on spaces
+        String[] words = s.split("\\s+");           // Tokenize the string into words
+
+        // Initialize the output string
+        StringBuilder out = new StringBuilder();
+
+        // Iterate through the words in reverse order
+        for (int k = words.length - 1; k > 0; k--) {
+            // Append the current word and a space to the output
+            out.append(words[k]).append(" ");
+        }
+
+        // Append the first word to the output (without trailing space)
+        return out.append(words[0]).toString();       // Concatenate the reversed words
     }
 }
