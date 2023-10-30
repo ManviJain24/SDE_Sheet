@@ -1,0 +1,36 @@
+class s2 {
+    public boolean checkifPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left <= right) {
+            if (s.charAt(left) == s.charAt(right)) {
+                left++;
+                right--;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String longestPalindrome(String s) {
+        char[] ch = s.toCharArray();
+        int maxSizeSubstr = Integer.MIN_VALUE;
+        String LongestSubStr = ""; // Move this line outside the loop
+
+        for (int i = 0; i < ch.length; i++) {
+            for (int j = i; j < ch.length; j++) {
+                String subStr = new String(ch).substring(i, j+1); // Correct substring usage
+                int n = subStr.length();
+
+                if (checkifPalindrome(subStr)) {
+                    if (maxSizeSubstr < n) {
+                        maxSizeSubstr = n;
+                        LongestSubStr = subStr; // Update LongestSubStr
+                    }
+                }
+            }
+        }
+        return LongestSubStr; // Now it's accessible in the return statement
+    }
+}
