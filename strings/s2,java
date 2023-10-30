@@ -1,3 +1,4 @@
+//error time limit exceed
 class s2 {
     public boolean checkifPalindrome(String s) {
         int left = 0;
@@ -33,4 +34,28 @@ class s2 {
         }
         return LongestSubStr; // Now it's accessible in the return statement
     }
+}
+
+// btter than above approch but error time limit exceed
+class s2{
+    public String longestPalindrome(String s) {
+            int n = s.length();
+                int max = 1, start = 0;
+    
+                    for (int i = 0; i < s.length(); i++) {
+                    for (int j = i; j < s.length(); j++) {
+                        boolean flag = true;
+    
+                            for (int k = 0; k < (j - i + 1) / 2; k++)
+                                if (s.charAt(i + k) != s.charAt(j - k))
+                                    flag = false;
+                            if (flag && (j - i + 1) > max) {
+                                start = i;
+                                max = j - i + 1;
+                            }
+                    }
+                }
+    
+            return s.substring(start,start+max);
+        }
 }
